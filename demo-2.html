@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      [v-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <button @click="add">+</button>
+      &nbsp;
+      <button :disabled="state.count <= 0" @click="sub">-</button>
+      <h1>{{state.count}} * 2 = {{double}}</h1>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      console.dir(Vue);
+      const { reactive, computed } = Vue;
+      let App = {
+        setup() {
+          const state = reactive({
+            count: 1
+          });
+          function add() {
+            state.count += 1;
+          }
+          function sub() {
+            state.count -= 1;
+          }
+          const double = computed(() => state.count * 2);
+          return { state, add, sub, double };
+        }
+      };
+      Vue.createApp(App).mount('#app');
+    </script>
+  </body>
+</html>
